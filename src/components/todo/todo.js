@@ -27,7 +27,7 @@ const ToDo = () => {
     function toggleComplete(id) {
 
         const items = list.map(item => {
-            if (item.id == id) {
+            if (item.id === id) {
                 item.complete = !item.complete;
             }
             return item;
@@ -41,7 +41,7 @@ const ToDo = () => {
         let incompleteCount = list.filter(item => !item.complete).length;
         setIncomplete(incompleteCount);
         document.title = `To Do List: ${incomplete}`;
-    }, [list]);
+    }, [incomplete, list]);
 
     return (
         <div className="todo">
