@@ -1,0 +1,59 @@
+.todo {
+
+    .title {
+        background-color: rgb(65, 60, 60);
+        color: white;
+        margin: 10px 20px 10px 20px;
+        padding: 10px;
+    }
+
+    .content {
+        display: flex;
+
+        .card-submit {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            height: 350px;
+            .labels {
+                margin: 10px 0;
+            }
+        }
+        .result {
+            margin: 10px;
+            margin: 10px;
+            width: 400px;
+            .card-result {
+                display: flex;
+                flex-direction: column;
+                .card-text {
+                    margin: 10px 0 0 0 ;
+                    display: flex;
+                    justify-content:space-between;
+                    .diff{
+                        margin: 15px 0 0 0;
+                    }
+                }
+
+                .card-buttons {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    .card-tag{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        Button{
+                            border-radius: 15px;
+                        }
+                        p{
+                            font-size:large;
+                            margin: 0 0 0 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
