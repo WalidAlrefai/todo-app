@@ -28,7 +28,7 @@ const ToDo = () => {
     //     }
     // }
     function deleteItem(id) {
-        const items = list.filter((item, index) => index !== id);
+        const items = list.filter((item) => item.id !== id);
         setList(items);
     }
     function toggleDisplay() {
