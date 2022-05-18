@@ -1,8 +1,11 @@
-import { Button, Card, Elevation, Icon } from "@blueprintjs/core";
+import { Button } from "@blueprintjs/core";
 import { useState, useContext, useEffect } from "react";
 import { UseSettings } from '../../context/Settings';
+import {DisplayContext} from '../../context/DisplayCompleted';
+import List from '../list/list.js';
 function Result(props) {
     const settings = useContext(UseSettings);
+    const  display  = useContext(DisplayContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageNumber, setPageNumber] = useState(Math.ceil(props.list.length / (settings.itemsPerPage)))
     const [activeList, setactiveList] = useState(
@@ -22,7 +25,7 @@ function Result(props) {
                 settings.itemsPerPage
             )
         );
-    }, [settings.itemsPerPage, settings.show, props.list, props.incomplete]);
+    }, [settings.itemsPerPage, settings.show, props.list, props.incomplete,display.display]);
     useEffect(() => {
         let start = (currentPage - 1) * settings.itemsPerPage;
         let end = start + settings.itemsPerPage;
@@ -33,6 +36,7 @@ function Result(props) {
     const changePage = (pageNum) => {
         if (pageNum !== currentPage) setCurrentPage(pageNum);
     };
+    
     const Pages = () => {
         let pagesArr = [];
         if (currentPage > 1) {
@@ -77,25 +81,23 @@ function Result(props) {
         }
         return <div className="pages"> {pagesArr} </div>;
     };
+    console.log('556666',activeList);
     return (
         <div className="result">
+
             {
-                activeList.map(item => (
-                    <div key={item.id}>
-                        <Card className="card-result" elevation={Elevation.TWO}>
-                            <div className="card-buttons">
-                                <div className="card-tag">
-                                    <Button className={item.complete ? 'bp3-intent-success' : 'bp3-intent-danger'} onClick={() => props.toggleComplete(item.id)}>{item.complete.toString()}</Button>
-                                    <p> {item.assignee}</p>
-                                </div>
-                                <Button className="delete" onClick={() => props.deleteItem(item.id)}><Icon icon="cross" size={20} /></Button>
-                            </div>
-                            <div className="card-text">
-                                <p>{item.text}</p>
-                                <p className="diff"><small>Difficulty: {item.difficulty}</small></p>
-                            </div>
-                        </Card>
+                display.display ?
+                activeList.map((item,index) => (
+                    <div >
+                        <List item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} index = {index}/>
+                        
                     </div>
+                ))
+                :  activeList.filter(item => item.complete === false).map((item,index) => (
+                    <div >
+                        
+                        <List item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} index ={index}/>
+                </div>
                 ))
             }
             <Pages />
