@@ -15,9 +15,15 @@
             display: flex;
             flex-direction: column;
             width: 200px;
-            height: 380px;
+            height: 420px;
             .labels {
                 margin: 10px 0;
+            }
+            .perpage{
+                display: flex;
+                p{
+                    margin: 0 5px 0 0;
+                }
             }
         }
         .result {
