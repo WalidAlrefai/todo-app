@@ -1,11 +1,11 @@
 import { Button } from "@blueprintjs/core";
 import { useState, useContext, useEffect } from "react";
 import { UseSettings } from '../../context/Settings';
-import {DisplayContext} from '../../context/DisplayCompleted';
+// import {DisplayContext} from '../../context/DisplayCompleted';
 import List from '../list/list.js';
 function Result(props) {
     const settings = useContext(UseSettings);
-    const  display  = useContext(DisplayContext);
+    // const  display  = useContext(DisplayContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageNumber, setPageNumber] = useState(Math.ceil(props.list.length / (settings.itemsPerPage)))
     const [activeList, setactiveList] = useState(
@@ -25,7 +25,7 @@ function Result(props) {
                 settings.itemsPerPage
             )
         );
-    }, [settings.itemsPerPage, settings.show, props.list, props.incomplete,display.display]);
+    }, [settings.itemsPerPage, settings.show, props.list, props.incomplete,settings.display]);
     useEffect(() => {
         let start = (currentPage - 1) * settings.itemsPerPage;
         let end = start + settings.itemsPerPage;
@@ -86,7 +86,7 @@ function Result(props) {
         <div className="result">
 
             {
-                display.display ?
+                settings.display ?
                 activeList.map((item,index) => (
                     <div >
                         <List item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} index = {index}/>

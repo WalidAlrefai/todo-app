@@ -3,16 +3,16 @@ import useForm from '../../hooks/form.js';
 import { Button, Card, Elevation, Switch } from "@blueprintjs/core";
 import "./todo.scss"
 import Result from '../result/result.js';
-import { DisplayContext } from "../../context/DisplayCompleted";
-// import { UseSettings } from "../../context/Settings";
+// import { DisplayContext } from "../../context/DisplayCompleted";
+import { UseSettings } from "../../context/Settings";
 
 import { v4 as uuid } from 'uuid';
 
 const ToDo = () => {
-    const display = useContext(DisplayContext);
-    // const settings = useContext(UseSettings);
+    // const display = useContext(DisplayContext);
+    const settings = useContext(UseSettings);
 
-    const [list, setList] = useState([]);
+    const [list, setList] = useState(JSON.parse(localStorage.getItem('list')) ||[]);
     const [incomplete, setIncomplete] = useState([]);
     const { handleChange, handleSubmit } = useForm(addItem);
     function addItem(item) {
@@ -21,34 +21,21 @@ const ToDo = () => {
         item.complete = false;
         console.log(item, "789");
         setList([...list, item]);
+        localStorage.setItem('list', JSON.stringify([...list, item]));
     }
-    // const itemPerPageToggle = (pages) => {
-    //     if (pages !== settings.itemsPerPage) {
-    //         settings.itemsPerPage = pages
-    //     }
-    // }
+    const itemPerPageToggle = (pages) => {
+        if (parseInt(pages) !== settings.itemsPerPage) {
+            settings.setItemsPerPage(parseInt(pages));
+        }
+    }
     function deleteItem(id) {
         const items = list.filter((item) => item.id !== id);
         setList(items);
     }
     function toggleDisplay() {
-        display.setDisplay(!display.display);
+        settings.setDisplay(!settings.display);
     }
 
-    // function toggleComplete(id) {
-    //     console.log(list , 'list');
-    //     const items = list.map((item,index)=> {
-    //         console.log(id ,"id");
-    //         console.log(index ,"index");
-
-    //         if (index === id) {
-    //             item.complete = !item.complete;
-    //         }
-    //         return item;
-    //     });
-    //     console.log("items", items);
-    //     setList(items);
-    // }
     function toggleComplete(id) {
 
         const items = list.map(item => {
@@ -66,7 +53,7 @@ const ToDo = () => {
         let incompleteCount = list.filter(item => !item.complete).length;
         setIncomplete(incompleteCount);
         document.title = `To Do List: ${incomplete}`;
-    }, [incomplete, list]);
+    }, [incomplete, list , settings.itemsPerPage]);
 
     return (
         <div className="todo">
@@ -95,15 +82,16 @@ const ToDo = () => {
                         <div className='displaySettings'>
                             <label>
                                 <Switch
-                                    checked={display.display}
+                                    checked={settings.display}
                                     label='show complete'
                                     onChange={toggleDisplay}
                                 />
                             </label>
-                            {/* <label>
-                                <input type="number" id="tentacles" name="tentacles"
-                                    min="1" max="10" onChange={itemPerPageToggle}/>
-                            </label> */}
+                            <label className="perpage">
+                                <p> Item PerPage</p>
+                                <input type="number" id="tentacles" name="tentacles" defaultValue={settings.itemsPerPage} onChange={(e) => itemPerPageToggle(e.target.value)} min="1" max="10"/>
+                            </label>
+                            <Button className="save" onClick={() => localStorage.setItem('settings', JSON.stringify(settings))}>Save Sittings</Button>
                         </div>
                     </Card>
                 </form >
