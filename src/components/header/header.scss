@@ -1,4 +1,17 @@
 .header{
+    height: 100px;
     background-color: rgb(49, 46, 46);
     color: white;
+    display: flex;
+    justify-content: space-around;
+    .heading{
+        margin: 25px 0 0 0;
+        
+        // align-items: center;
+        .log{
+            .signup-signin{
+                margin: 30px 0 0 0;
+            }
+        }
+    }
 }

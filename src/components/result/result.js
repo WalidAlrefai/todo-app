@@ -3,8 +3,11 @@ import { useState, useContext, useEffect } from "react";
 import { UseSettings } from '../../context/Settings';
 // import {DisplayContext} from '../../context/DisplayCompleted';
 import List from '../list/list.js';
+import {When} from 'react-if';
+import {LoginContext} from '../../context/LoginContext';
 function Result(props) {
     const settings = useContext(UseSettings);
+    const log = useContext(LoginContext);
     // const  display  = useContext(DisplayContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageNumber, setPageNumber] = useState(Math.ceil(props.list.length / (settings.itemsPerPage)))
@@ -84,7 +87,7 @@ function Result(props) {
     console.log('556666',activeList);
     return (
         <div className="result">
-
+            <When condition={log.canDo('read')}>
             {
                 settings.display ?
                 activeList.map((item,index) => (
@@ -101,6 +104,7 @@ function Result(props) {
                 ))
             }
             <Pages />
+            </When>
         </div>
     )
 }
