@@ -10,7 +10,7 @@ export default function Login(props) {
     const [password, setPassword] = useState();
     const [role, setRole] = useState();
     const [signup, setSignup] = useState(false);
-    const [login, setLogin] = useState(false);
+    const [login, setLogin] = useState(true);
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -36,7 +36,7 @@ export default function Login(props) {
 
     return (
         <div className="log-form">
-            {/* <p>Welcome to TODO!</p> */}
+            
             <When condition={!log.loggedIn}>
                 <div>
                     <When condition={login}>
