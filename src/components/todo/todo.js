@@ -3,14 +3,17 @@ import useForm from '../../hooks/form.js';
 import { Button, Card, Elevation, Switch } from "@blueprintjs/core";
 import "./todo.scss"
 import Result from '../result/result.js';
+import { When } from 'react-if';
 // import { DisplayContext } from "../../context/DisplayCompleted";
 import { UseSettings } from "../../context/Settings";
+import {LoginContext} from '../../context/LoginContext';
 
 import { v4 as uuid } from 'uuid';
 
 const ToDo = () => {
     // const display = useContext(DisplayContext);
     const settings = useContext(UseSettings);
+    const log = useContext(LoginContext);
 
     const [list, setList] = useState(JSON.parse(localStorage.getItem('list')) ||[]);
     const [incomplete, setIncomplete] = useState([]);
@@ -58,11 +61,13 @@ const ToDo = () => {
     return (
         <div className="todo">
             <header>
-                <h1 className="title">To Do List: {incomplete} items pending</h1>
+                <h1 className="title">To Do List: {log.loggedIn?incomplete : '0 '} items pending</h1>
             </header>
             <div className="content">
+                <When condition={log.loggedIn}>
                 <form onSubmit={handleSubmit}>
                     <Card className="card-submit" elevation={Elevation.TWO} interactive={true}>
+                    <When condition={log.canDo('create')}>
                         <h2>Add To Do Item</h2>
                         <label className="labels">
                             <p>To Do Item</p>
@@ -79,6 +84,7 @@ const ToDo = () => {
                         <label className="labels">
                             <Button type="submit">Add item</Button>
                         </label>
+                        </When>
                         <div className='displaySettings'>
                             <label>
                                 <Switch
@@ -96,6 +102,7 @@ const ToDo = () => {
                     </Card>
                 </form >
                 <Result list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} incomplete={incomplete} />
+                </When>
             </div>
         </div>
     );

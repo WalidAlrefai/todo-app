@@ -1,11 +1,11 @@
 import { Button, Card, Elevation, Icon } from "@blueprintjs/core";
 // import {useState} from 'react';
+import { useContext } from 'react';
+import {LoginContext} from '../../context/LoginContext';
+import { When } from "react-if";
 
 function List(props){
-    // const [state, setState] = useState(false);
-    // function toggle(){
-    //     setState(!state);
-    // }
+    const log = useContext(LoginContext);
     console.log('555555',props.index);
     return(
         <Card key={props.item.id} className="card-result" elevation={Elevation.THREE} interactive={true}>
@@ -15,7 +15,9 @@ function List(props){
                                     <Button class="@ns-button" type="button" className={props.item.complete ? 'bp3-intent-success' : 'bp3-intent-danger'} onClick={() => props.toggleComplete(props.item.id)} value={props.item.complete.toString()}>{props.item.complete.toString()}</Button>
                                     <p> {props.item.assignee}</p>
                                 </div>
+                                <When condition={log.canDo('delete')}>
                                 <Button className="delete" onClick={() => props.deleteItem(props.item.id)}><Icon icon="cross" size={20} /></Button>
+                                </When>
                             </div>
                             <div className="card-text">
                                 <p>{props.item.text}</p>
