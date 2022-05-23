@@ -15,3 +15,4 @@ the base of todo app.
 - [Netlify Link](https://stunning-cobbler-57f80b.netlify.app//)
 - [PR6](https://github.com/WalidAlrefai/todo-app/pull/6)
 - [PR 8](https://github.com/WalidAlrefai/todo-app/pull/8)
+- [PR 10](https://github.com/WalidAlrefai/todo-app/pull/10)
