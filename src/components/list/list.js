@@ -12,7 +12,7 @@ function List(props){
 
                             <div className="card-buttons">
                                 <div className="card-tag">
-                                    <Button class="@ns-button" type="button" className={props.item.complete ? 'bp3-intent-success' : 'bp3-intent-danger'} onClick={() => props.toggleComplete(props.item.id)} value={props.item.complete.toString()}>{props.item.complete.toString()}</Button>
+                                    <Button class="@ns-button" type="button" className={props.item.complete ? 'bp4-intent-success' : 'bp4-intent-danger'} onClick={() => props.toggleComplete(props.item.id)} value={props.item.complete.toString()}>{props.item.complete.toString()}</Button>
                                     <p> {props.item.assignee}</p>
                                 </div>
                                 <When condition={log.canDo('delete')}>
