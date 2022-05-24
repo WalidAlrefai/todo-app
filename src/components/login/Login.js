@@ -86,9 +86,7 @@ export default function Login(props) {
                                         select your role
                                     </option>
                                     <option value='user'>user</option>
-                                    <option value='admin'>editor</option>
-                                    <option value='writer'>writer</option>
-                                    <option value='editor'>admin</option>
+                                    <option value='admin'>admin</option>
                                 </select>
                             </div>
                             <Button type='submit' className='sign-up' style={{ backgroundColor: 'blue', color: 'white' }}>
